@@ -1,0 +1,12 @@
+#!/bin/sh
+
+KEY=<keyname>
+GPG_PATH=/usr/bin
+
+for f in "$@"
+do
+   if [ -f "$f" ] ; then
+       $GPG_PATH/gpg --batch --yes --output "$f".gpg --encrypt -r $KEY "$f";
+       srm "$f";
+   fi
+done

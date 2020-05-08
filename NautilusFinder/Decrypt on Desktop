@@ -1,0 +1,15 @@
+#!/bin/sh
+
+GPG_PATH=/usr/bin
+OUTPUT_DIR=~/Desktop/docs
+
+mkdir $OUTPUT_DIR
+
+for f in "$@"
+do
+   if [ -f "$f" ] ; then
+	   bname=`basename "$f"`
+	   output_file="${bname%.*}"
+       $GPG_PATH/gpg --batch --yes --output "$OUTPUT_DIR/$output_file" --decrypt "$f";
+   fi
+done

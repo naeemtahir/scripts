@@ -1,0 +1,9 @@
+#!/bin/sh
+for f in "$@"
+do
+	if [ -d "$f" ] ; then
+		srm -r "$f";
+	else
+		srm "$f";
+	fi
+done
