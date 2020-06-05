@@ -55,7 +55,7 @@ fi
 
 set -e
 
-# Check output directory is not sub-directory of input directory,
+# Verify output directory is not sub-directory of input directory,
 # then mirror input directory structure into output directory
 OUTPUT_DIR=$(realpath "$OUTPUT_DIR")
 if [ "$OUTPUT_DIR" != "$PWD" ]; then
@@ -70,11 +70,28 @@ if [ "$OUTPUT_DIR" != "$PWD" ]; then
   fi
 fi
 
-read -r -s -p "Password: " password
+if [ "$OPERATION" == "-e" ]; then
+   password_matched=false
+
+   while [ "$password_matched" = false ]; do
+      read -r -s -p "Password: " password
+      echo ""
+      read -r -s -p "Verify password: " passwordv
+      echo ""
+
+      if [ "$password" == "$passwordv" ]; then
+         password_matched=true
+      else
+         echo "Passwords don't match, retry."
+      fi
+   done
+else
+   read -r -s -p "Password: " password
+fi
 
 # Construct encryption/decryption command
-ENC_COMMAND="find . -maxdepth 1 -type f -not -name "*.$ENC_EXT" -a -exec openssl aes-256-cbc -e -pbkdf2 -a -A -in {} -out "$OUTPUT_DIR"/{}.$ENC_EXT -pass pass:\"$password\" \; -exec rm {} \;"
-DEC_COMMAND="find . -maxdepth 1 -type f -name "*.$ENC_EXT" -exec openssl aes-256-cbc -d -pbkdf2 -a -A -in {} -out "$OUTPUT_DIR"/{}.d -pass pass:\"$password\" \; -exec rename 's/\.$ENC_EXT\.d$//' "$OUTPUT_DIR"/{}.d \; -exec rm {} \;"
+ENC_COMMAND="find . -maxdepth 1 -type f -not -name "*.$ENC_EXT" -a -exec openssl enc -e -aes-256-cbc -pbkdf2 -in {} -out "$OUTPUT_DIR"/{}.$ENC_EXT -pass pass:\"$password\" \; -exec rm {} \;"
+DEC_COMMAND="find . -maxdepth 1 -type f -name "*.$ENC_EXT" -exec openssl enc -d -aes-256-cbc -pbkdf2 -in {} -out "$OUTPUT_DIR"/{}.d -pass pass:\"$password\" \; -exec rename 's/\.$ENC_EXT\.d$//' "$OUTPUT_DIR"/{}.d \; -exec rm {} \;"
 
 if [ ! -z $PROCESS_SUBDIR ]; then
   ENC_COMMAND=$(echo "$ENC_COMMAND" | sed 's/-maxdepth 1 //g')
