@@ -26,3 +26,4 @@ for file in `find "$(pwd)" -iname "*.sh" -type f`; do
 done
 IFS="$OLD_IFS"
 
+rm $HOME/bin/push2gh.sh
