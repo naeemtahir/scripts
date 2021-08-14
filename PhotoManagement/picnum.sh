@@ -14,7 +14,7 @@ if [ "$#" -ge 1 ] && [[ $1 =~ $re ]]; then
 
 	OLD_IFS="$IFS"
 	IFS=$'\n'
-	for file in `find . -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.gif" \) | sort`; do
+	for file in `find . -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" \) | sort`; do
     	fext="${file##*.}"
   
 		newname=`printf "%s%04d" "$prefix" "$counter"`
