@@ -28,7 +28,7 @@ display_usage () {
     echo "          i. Save rules to a file: sudo sh -c 'iptables-save > /etc/iptables.rules'                      "
     echo "         ii. Create a script '/etc/network/if-pre-up.d/firewall' with following contents                 "
     echo "                  #!/bin/bash                                                                            "
-    echo "                  /sbin/iptables-restore < /etc/iptables.rules                                           "
+    echo "                  $(which iptables-restore) < /etc/iptables.rules                                        "
     echo "        iii. Make it runnable: sudo chmod +x /etc/network/if-pre-up.d/firewall                           "
     echo "         iv. Reboot system                                                                               "
     echo "          v. List the iptables rules to check if it has been applied: iptables -L                        "
