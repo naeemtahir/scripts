@@ -14,7 +14,7 @@ if [ ! -f "$TODO" ]; then
 fi
 
 if [ "$#" -gt 0 ]; then
-    echo "[] $@" >> $TODO
+    echo "[] $@" >> "$TODO"
 fi
 
-cat $TODO
+cat "$TODO"
