@@ -2,6 +2,12 @@
 
 # https://misc.flogisoft.com/bash/tip_colors_and_formatting
 RED='\e[31m'
+GREEN='\e[32m'
+YELLOW='\e[33m'
+NO_COLOR='\e[0m'
+LIGHT_CYAN='\e[96m'
+WHITE='\e[97m'
+BLINK='\e[5m'
 
 if [ -z "$TODO" ]; then
     echo -e "${RED}Environment variable TODO not defined.${NO_COLOR}"
@@ -30,8 +36,13 @@ if [ "$#" -ge 1 ]; then
         echo "  Usage: $script_name [-e]"
     fi
 else
+    echo -e "${GREEN} _____ ___  ____   ___       ${NO_COLOR}"
+    echo -e "${GREEN}|_   _/ _ \|  _ \ / _ \ ___  ${NO_COLOR}"
+    echo -e "${GREEN}  | || | | | | | | | | / __| ${NO_COLOR}"
+    echo -e "${GREEN}  | || |_| | |_| | |_| \__ \ ${NO_COLOR}"
+    echo -e "${GREEN}  |_| \___/|____/ \___/|___/ ${NO_COLOR}"
+    echo ""
     cat "$TODO"
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "| Use '-e' to edit TODOs |"
-    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo ""
+    echo -e "${LIGHT_CYAN}Use '-e' to edit TODOs${NO_COLOR}"
 fi
