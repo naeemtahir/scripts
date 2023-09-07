@@ -48,9 +48,8 @@ if [ "$#" -gt 0 ]; then
         sudo iptables -I OUTPUT 1 -m owner --gid-owner no-internet -j DROP
         sg no-internet "${1} ${@:2}"
     else
-        echo -e "${RED}Firewall rule not set, can't launch program. Run this script without arguments to see how to set firewall rules.${NO_COLOR}"
+        printf "${RED}Firewall rule not set, can't launch program. Run this script without arguments to see how to set firewall rules.${NO_COLOR}\n"
     fi
 else
     display_usage
 fi
-

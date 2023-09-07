@@ -10,12 +10,12 @@ WHITE='\e[97m'
 BLINK='\e[5m'
 
 if [ -z "$TODO" ]; then
-    echo -e "${RED}Environment variable TODO not defined.${NO_COLOR}"
+    printf "${RED}Environment variable TODO not defined.${NO_COLOR}\n"
     exit 1
 fi
 
 if [ ! -f "$TODO" ]; then
-    echo -e "${RED}File not found: ${TODO}${NO_COLOR}"
+    printf "${RED}File not found: ${TODO}${NO_COLOR}\n"
     exit 1
 fi
 
@@ -46,13 +46,15 @@ if [ "$#" -ge 1 ]; then
         echo "      -g Edit TODOs in default Graphics editor"
     fi
 else
-    echo -e "${GREEN} _____ ___  ____   ___       ${NO_COLOR}"
-    echo -e "${GREEN}|_   _/ _ \|  _ \ / _ \ ___  ${NO_COLOR}"
-    echo -e "${GREEN}  | || | | | | | | | | / __| ${NO_COLOR}"
-    echo -e "${GREEN}  | || |_| | |_| | |_| \__ \ ${NO_COLOR}"
-    echo -e "${GREEN}  |_| \___/|____/ \___/|___/ ${NO_COLOR}"
-    echo ""
+    printf "${GREEN} _____ ___  ____   ___       ${NO_COLOR}\n"
+    printf "${GREEN}|_   _/ _ \|  _ \ / _ \ ___  ${NO_COLOR}\n"
+    printf "${GREEN}  | || | | | | | | | | / __| ${NO_COLOR}\n"
+    printf "${GREEN}  | || |_| | |_| | |_| \__ \ ${NO_COLOR}\n"
+    printf "${GREEN}  |_| \___/|____/ \___/|___/ ${NO_COLOR}\n"
+    printf "\n"
+
     cat "$TODO"
-    echo ""
-    echo -e "${LIGHT_CYAN}Pass -e or -g to edit TODOs${NO_COLOR}"
+
+    printf "\n"
+    printf "${LIGHT_CYAN}Pass -e or -g to edit TODOs${NO_COLOR}\n"
 fi

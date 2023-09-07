@@ -23,14 +23,14 @@ if [ "$#" -eq 2 ] && ([[ "$1" == "-l" ]] || [[ "$1" == "-d" ]]) && [ -d "$2" ]; 
 
          if [ $status_code -ne 200 ] && [ $status_code -ne 301 ]; then
             if [ "$1" == "-d" ]; then
-               echo -e "${RED}Deleting $b [$status_code]${NO_COLOR}"
+               printf "${RED}Deleting $b [$status_code]${NO_COLOR}\n"
                sqlite3 "$PROFILE_DIR"/places.sqlite "DELETE FROM moz_bookmarks WHERE id IN (SELECT bookmarks.id FROM moz_places as places JOIN moz_bookmarks as bookmarks ON places.id=bookmarks.fk where places.URL='$b')"
             fi
          fi
       elif [ "$exit_code" -eq "28" ]; then
-         echo -e "${YELLOW}$b timed out${NO_COLOR}"
+         printf "${YELLOW}$b timed out${NO_COLOR}\n"
       else
-         echo -e "${RED}Cannot query $b, exit code $exit_code. Check your network connection and try again.${NO_COLOR}"
+         printf "${RED}Cannot query $b, exit code $exit_code. Check your network connection and try again.${NO_COLOR}\n"
          exit $exit_code
       fi
    done
