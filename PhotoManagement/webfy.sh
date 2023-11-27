@@ -21,7 +21,7 @@ if [ "$#" -eq 2 ] && [[ $1 =~ $re ]] && [[ $2 =~ $re ]]; then
 		newname=$(printf "%s_%06d" "$prefix" "$counter")
 
 		if [ "$2" -gt 0 ]; then
-			mv "$file" "$newname"."$fext"
+			mv -iv "$file" "$newname"."$fext"
 		fi
 
 		counter=$((counter+1));
