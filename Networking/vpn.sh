@@ -10,13 +10,12 @@ if [ "$#" -eq 1 ]; then
     echo "   Advertise DNS to clients: Yes"
     echo "   Encryption cipher: AES-256-CBC"
     echo "   Push LAN to clients: Yes"
-    echo "   Direct clients to redirect Internet traffic: Yes"    
-    echo "==============================================================================="    
+    echo "   Direct clients to redirect Internet traffic: Yes"
+    echo "==============================================================================="
 
     sudo openvpn --config $1
 else
-    script_name=`basename "$0"`
+    script_name=$(basename "$0")
     echo "Usage: $script_name <client.ovpn>"
     exit 1
 fi
-
