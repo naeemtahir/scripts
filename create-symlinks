@@ -27,3 +27,6 @@ done
 IFS="$OLD_IFS"
 
 rm $HOME/bin/push2gh.sh
+
+rm $HOME/bin/todo.sh
+ln -s $PWD/Misc/todo.sh $HOME/bin/todo
