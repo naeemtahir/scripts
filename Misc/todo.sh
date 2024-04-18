@@ -20,20 +20,30 @@ if [ ! -f "$TODO" ]; then
 fi
 
 if [ "$#" -ge 1 ]; then
-    if [ "$1" == "-e" ]; then
+    if [ "$1" == "-e" ] || [ "$1" == "-g" ]; then
         if [[ "$OSTYPE" == "linux"* ]] && ([[ $(uname -a) =~ .*Microsoft.* ]] || [[ $(uname -a) =~ .*WSL2.* ]]); then
             vi "$TODO"
         elif [[ "$OSTYPE" == "linux"* ]]; then
-            gedit "$TODO" &
+            if [ "$1" == "-g" ]; then
+                xdg-open "$TODO" &
+            else
+                vi "$TODO"
+            fi
         elif [[ "$OSTYPE" == "darwin"* ]]; then
-            open -a TextMate "$TODO" &
+            if [ "$1" == "-g" ]; then
+                open "$TODO" &
+            else
+                vi "$TODO"
+            fi
         else
             vi "$TODO"
         fi
     else
         script_name=$(basename "$0")
         echo "View or edit (use -e) your TODOs file (i.e., $TODO)."
-        echo "  Usage: $script_name [-e]"
+        echo "  Usage: $script_name [-e] [-g]"
+        echo "      -e Edit TODOs in vi"
+        echo "      -g Edit TODOs in default Graphics editor"
     fi
 else
     echo -e "${GREEN} _____ ___  ____   ___       ${NO_COLOR}"
@@ -44,5 +54,5 @@ else
     echo ""
     cat "$TODO"
     echo ""
-    echo -e "${LIGHT_CYAN}Use '$(basename "$0") -e' to edit TODOs${NO_COLOR}"
+    echo -e "${LIGHT_CYAN}Pass -e or -g to edit TODOs${NO_COLOR}"
 fi
