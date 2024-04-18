@@ -6,7 +6,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NO_COLOR='\033[0m'
 
-echo -e "${GREEN}Creating symlinks for all .sh files. Any script without .sh extension will be skipped${NO_COLOR}"
+printf "${GREEN}Creating symlinks for all .sh files. Any script without .sh extension will be skipped${NO_COLOR}\n"
 
 if [ ! -d "$HOME/bin" ]; then
    mkdir $HOME/bin
