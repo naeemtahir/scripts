@@ -44,5 +44,5 @@ else
     echo ""
     cat "$TODO"
     echo ""
-    echo -e "${LIGHT_CYAN}Use '-e' to edit TODOs${NO_COLOR}"
+    echo -e "${LIGHT_CYAN}Use '$(basename "$0") -e' to edit TODOs${NO_COLOR}"
 fi
