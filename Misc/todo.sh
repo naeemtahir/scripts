@@ -21,8 +21,8 @@ fi
 
 if [ "$#" -ge 1 ]; then
     if [ "$1" == "-e" ]; then
-        if [[ "$OSTYPE" == "linux"* ]] && [[ $(uname -a) =~ .*Microsoft.* ]]; then
-            notepad.exe "$TODO" &
+        if [[ "$OSTYPE" == "linux"* ]] && ([[ $(uname -a) =~ .*Microsoft.* ]] || [[ $(uname -a) =~ .*WSL2.* ]]); then
+            vi "$TODO"
         elif [[ "$OSTYPE" == "linux"* ]]; then
             gedit "$TODO" &
         elif [[ "$OSTYPE" == "darwin"* ]]; then
