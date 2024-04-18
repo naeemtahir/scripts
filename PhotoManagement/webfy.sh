@@ -9,7 +9,7 @@ if [ "$#" -eq 2 ] && [[ $1 =~ $re ]] && [[ $2 =~ $re ]]; then
 	
 	OLD_IFS="$IFS"
 	IFS=$'\n'
-	for file in `find . -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.gif" \) | sort`; do
+	for file in `find . -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" \) | sort`; do
 		fext="${file##*.}"
   
 		mogrify -strip -auto-orient "$file"
