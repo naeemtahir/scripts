@@ -8,25 +8,25 @@ NO_COLOR='\033[0m'
 
 echo -e "${GREEN}Creating symlinks for all .sh files. Any script without .sh extension will be skipped${NO_COLOR}"
 
-if [ ! -d "$HOME/bin" ]; then 
-   mkdir $HOME/bin 
+if [ ! -d "$HOME/bin" ]; then
+   mkdir $HOME/bin
 fi
 
 OLD_IFS="$IFS"
 IFS=$'\n'
-for file in `find "$(pwd)" -iname "*.sh" -type f`; do
+for file in $(find "$(pwd)" -iname "*.sh" -type f); do
     link_name=$(echo ${file:2} | sed 's@.*/@@') # Remove everything before and including last '/' to get file name
 
     echo "Creating symlink $HOME/bin/$link_name -> $file"
     if [[ -L "$HOME/bin/$link_name" ]]; then
-       rm $HOME/bin/$link_name
+       rm "$HOME/bin/$link_name"
     fi
 
-    ln -s $file $HOME/bin/$link_name
+    ln -s "$file" "$HOME/bin/$link_name"
 done
 IFS="$OLD_IFS"
 
-rm $HOME/bin/push2gh.sh
+rm "$HOME/bin/push2gh.sh"
 
-rm $HOME/bin/todo.sh
-ln -s $PWD/Misc/todo.sh $HOME/bin/todo
+rm "$HOME/bin/todo.sh"
+ln -s "$PWD/Misc/todo.sh" "$HOME/bin/todo"
