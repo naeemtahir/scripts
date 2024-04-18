@@ -44,6 +44,9 @@ if [ "$#" -gt 0 ]; then
 
     if [ "$?" -eq 0 ]; then
         sg no-internet "${1} ${@:2}"
+    elif [ $(getent group no-internet) ] && [ $(getent group no-internet | grep $USER) ]; then # Handle the case when iptables rules are rolledback after reboot (this happens in Ubuntu)
+        sudo iptables -I OUTPUT 1 -m owner --gid-owner no-internet -j DROP
+        sg no-internet "${1} ${@:2}"
     else
         echo -e "${RED}Firewall rule not set, can't launch program. Run this script without arguments to see how to set firewall rules.${NO_COLOR}"
     fi
