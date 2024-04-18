@@ -31,4 +31,7 @@ if [ "$#" -ge 1 ]; then
     fi
 else
     cat "$TODO"
+    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo -e "| Use '-e' to edit TODOs |"
+    echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~"
 fi
