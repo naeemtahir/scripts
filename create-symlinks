@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Creates symlinks in $HOME/bin for all .sh files in current folder.
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NO_COLOR='\033[0m'
+
+echo -e "${GREEN}Creating symlinks for all .sh files. Any script without .sh extension will be skipped${NO_COLOR}"
+
+if [ ! -d "$HOME/bin" ]; then 
+   mkdir $HOME/bin 
+fi
+
+OLD_IFS="$IFS"
+IFS=$'\n'
+for file in `find "$(pwd)" -iname "*.sh" -type f`; do
+    link_name=$(echo ${file:2} | sed 's@.*/@@') # Remove everything before and including last '/' to get file name
+
+    echo "Creating symlink $HOME/bin/$link_name -> $file"
+    if [[ -L "$HOME/bin/$link_name" ]]; then
+       rm $HOME/bin/$link_name
+    fi
+
+    ln -s $file $HOME/bin/$link_name
+done
+IFS="$OLD_IFS"
+
