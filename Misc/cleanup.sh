@@ -27,9 +27,9 @@ do
     fi
 done
 
-# Cleanup Mac Crap (usually reated when you access a shared folder from MacOS), and any Dropbox conflicts 
+# Cleanup Mac Crap (usually created when you access a shared folder from MacOS)
 echo "Removing any .DS_Store, ._*, and *conflicted*"
-find . -name "._*" -delete -o -name ".DS_Store" -delete -o -name "*conflicted*" -delete
+find . -name "._*" -delete -o -name ".DS_Store" -delete
 
 # Finally cleanup current directoy with 'dot_clean' when on Mac
 if [[ "$OSTYPE" == "darwin"* ]]; then
