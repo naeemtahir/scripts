@@ -16,15 +16,15 @@ def main():
     df = pd.read_csv(input_csv)
 
     # Remove columns
-    columns_to_remove = ['Account Number', 'Account Name','Last Price','Last Price Change','Today\'s Gain/Loss Dollar','Today\'s Gain/Loss Percent','Type']
+    columns_to_remove = ['Account Number', 'Account Name','Last Price Change','Today\'s Gain/Loss Dollar','Today\'s Gain/Loss Percent','Type']
     df.drop(columns=columns_to_remove, inplace=True)
 
     # Reorder columns
-    desired_column_order = ['Symbol','Description','Quantity','Average Cost Basis','Cost Basis Total','Current Value','Total Gain/Loss Dollar','Total Gain/Loss Percent','Percent Of Account']
+    desired_column_order = ['Symbol','Description','Quantity','Average Cost Basis','Last Price','Cost Basis Total','Current Value','Total Gain/Loss Dollar','Total Gain/Loss Percent','Percent Of Account']
     df = df[desired_column_order]
 
     # Insert an empty column at index 6
-    df.insert(6, '', '')
+    df.insert(7, '', '')
 
     # Write the modified DataFrame back to a CSV file
     df.to_csv(output_csv, index=False)
