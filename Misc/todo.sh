@@ -9,6 +9,21 @@ LIGHT_CYAN='\e[96m'
 WHITE='\e[97m'
 BLINK='\e[5m'
 
+
+display_todos() {
+    printf "${GREEN} _____ ___  ____   ___       ${NO_COLOR}\n"
+    printf "${GREEN}|_   _/ _ \|  _ \ / _ \ ___  ${NO_COLOR}\n"
+    printf "${GREEN}  | || | | | | | | | | / __| ${NO_COLOR}\n"
+    printf "${GREEN}  | || |_| | |_| | |_| \__ \ ${NO_COLOR}\n"
+    printf "${GREEN}  |_| \___/|____/ \___/|___/ ${NO_COLOR}\n"
+    printf "\n"
+
+    cat "$TODO"
+
+    printf "\n"
+    printf "${LIGHT_CYAN}Pass -e or -g to edit TODOs${NO_COLOR}\n"
+}
+
 if [ -z "$TODO" ]; then
     printf "${RED}Environment variable TODO not defined.${NO_COLOR}\n"
     exit 1
@@ -38,6 +53,8 @@ if [ "$#" -ge 1 ]; then
         else
             vi "$TODO"
         fi
+
+        display_todos
     else
         script_name=$(basename "$0")
         echo "View or edit (use -e) your TODOs file (i.e., $TODO)."
@@ -46,15 +63,5 @@ if [ "$#" -ge 1 ]; then
         echo "      -g Edit TODOs in default Graphics editor"
     fi
 else
-    printf "${GREEN} _____ ___  ____   ___       ${NO_COLOR}\n"
-    printf "${GREEN}|_   _/ _ \|  _ \ / _ \ ___  ${NO_COLOR}\n"
-    printf "${GREEN}  | || | | | | | | | | / __| ${NO_COLOR}\n"
-    printf "${GREEN}  | || |_| | |_| | |_| \__ \ ${NO_COLOR}\n"
-    printf "${GREEN}  |_| \___/|____/ \___/|___/ ${NO_COLOR}\n"
-    printf "\n"
-
-    cat "$TODO"
-
-    printf "\n"
-    printf "${LIGHT_CYAN}Pass -e or -g to edit TODOs${NO_COLOR}\n"
+    display_todos
 fi
