@@ -29,6 +29,8 @@ def main():
     # Write the modified DataFrame back to a CSV file
     df.to_csv(output_csv, index=False)
 
+    print(output_csv, "is ready, open it in a spreadsheet program, copy cells A2:G$$ and paste as values (Ctrl-Shift-V) into destination sheet.")
+
 def parse_args():
     parser = argparse.ArgumentParser(description='Simplify Fidelity Portfolio CSV for Import.')
 
