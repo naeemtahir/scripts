@@ -31,10 +31,10 @@ if [ "$#" -eq 2 ]; then
             mogrify -resize $width -verbose "$file"
         fi
 
-        newname=$(printf "%s_%06d.%s" "$prefix" "$file_counter" "$fext")
+        new_filename=$(printf "%s_%06d.%s" "$prefix" "$file_counter" "$fext")
 
         if [ "$2" -gt 0 ]; then
-            mv -i "$file" "$newname"
+            mv -iv "$file" "$new_filename"
         fi
 
         file_counter=$((file_counter+1))
