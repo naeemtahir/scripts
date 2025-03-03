@@ -5,7 +5,7 @@ download_audio() {
     local arg=$*
 
     echo $arg
-    youtube-dl -x --audio-format mp3 --output "%(title)s.%(ext)s" $arg
+    yt-dlp -f bestaudio -x --audio-format mp3 --audio-quality 0 "$arg"
 }
 
 if [ "$#" -eq 1 ]; then
