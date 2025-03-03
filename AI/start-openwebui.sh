@@ -3,9 +3,6 @@
 echo "Pulling and running OpenWebUI container from web..."
 docker container run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
 
-#echo "Exit code $?"
-#echo "Ouptut: $result"
-
 if [ $? -eq 125 ]; then
    echo "OpenWebUI container already exists, starting existing container..."
    docker container start open-webui
