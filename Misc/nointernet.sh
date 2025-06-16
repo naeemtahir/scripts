@@ -40,15 +40,31 @@ display_usage () {
 
 if [ "$#" -gt 0 ]; then
     echo "Checking firewall rule"
-    sudo iptables -L | grep no-internet
+    # Run sudo command and capture any error
+    sudo_output=$(sudo iptables -L 2>&1)
+    sudo_status=$?
 
-    if [ "$?" -eq 0 ]; then
+    if [ $sudo_status -ne 0 ]; then
+        printf "${RED}Error: Failed to check firewall rules (wrong sudo password?). Exiting.${NO_COLOR}\n"
+        exit 1
+    fi
+
+    # Now check for the rule
+    echo "$sudo_output" | grep no-internet >/dev/null
+    rule_exists=$?
+
+    if [ "$rule_exists" -eq 0 ]; then
         sg no-internet "${1} ${@:2}"
-    elif [ $(getent group no-internet) ] && [ $(getent group no-internet | grep $USER) ]; then # Handle the case when iptables rules are rolledback after reboot (this happens in Ubuntu)
-        sudo iptables -I OUTPUT 1 -m owner --gid-owner no-internet -j DROP
+    elif [ $(getent group no-internet) ] && [ $(getent group no-internet | grep $USER) ]; then # Handle the case when iptables rules are rolledback after reboot (this happens in Ubuntu sometimes)
+        # Try to add the rule, exit if sudo fails
+        if ! sudo iptables -I OUTPUT 1 -m owner --gid-owner no-internet -j DROP; then
+            printf "${RED}Error: Failed to add firewall rule (wrong sudo password?). Exiting.${NO_COLOR}\n"
+            exit 1
+        fi
         sg no-internet "${1} ${@:2}"
     else
         printf "${RED}Firewall rule not set, can't launch program. Run this script without arguments to see how to set firewall rules.${NO_COLOR}\n"
+        exit 1
     fi
 else
     display_usage
