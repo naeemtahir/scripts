@@ -41,7 +41,7 @@ if [ "$#" -ge 1 ] && [[ $1 =~ $re ]]; then
 	for file in $(find . -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" \) | sort); do
     fext="${file##*.}"
 
-    new_filename=$(printf "%s%04d.%s" "$prefix" "$counter" "$fext")
+    new_filename=$(printf "%s%06d.%s" "$prefix" "$counter" "$fext")
     mv -iv "$file" "$new_filename"
 
     counter=$((counter+1));
