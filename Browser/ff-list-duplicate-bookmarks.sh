@@ -58,5 +58,10 @@ if [[ ! -r "$PLACES_DB" ]]; then
   exit 1
 fi
 
-sqlite3 -header -column "$PLACES_DB" "$DETAILED_QUERY"
-#sqlite3 -header -column "$PLACES_DB" "$SUMMARY_QUERY"
+TIMESTAMP=$(date '+%Y%m%d_%H%M%S')
+OUTPUT_FILE="duplicate_bookmarks_$TIMESTAMP.txt"
+
+sqlite3 -header -column "$PLACES_DB" "$DETAILED_QUERY"  | tee $OUTPUT_FILE
+#sqlite3 -header -column "$PLACES_DB" "$SUMMARY_QUERY"  | tee $OUTPUT_FILE
+
+printf "\nDuplicate bookmarks list '$OUTPUT_FILE' ready.\n"

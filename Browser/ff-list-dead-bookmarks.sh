@@ -29,13 +29,13 @@ sqlite3 "$PLACES_DB" "SELECT places.url FROM moz_places as places JOIN moz_bookm
 while read -r url; do
   [[ -z "$url" ]] && continue
 
-  HTTP_STATUS=$(curl --user-agent "BookmarkManager/1.0" --connect-timeout 5 --max-time 10 --silent --head $url | awk '/^HTTP/{code=$2} END{print code}')
+  HTTP_STATUS=$(curl --user-agent "DeadBookmarkFinder/1.0" --connect-timeout 5 --max-time 10 --silent --head $url | awk '/^HTTP/{code=$2} END{print code}')
 
-  if [[ "$HTTP_STATUS" -ne 200 ]]; then   # Treat everything (including empty status) but 200 as dead page.
+  if [[ "$HTTP_STATUS" -ne 200 ]]; then   # Treat everything other than 200 as dead page.
   	echo "$url" | tee -a $OUTPUT_FILE
   fi
 
   sleep $SLEEP_INTERVAL
 done
 
-echo "\nDead bookmarks list '$OUTPUT_FILE' ready."
+printf "\nDead bookmarks list '$OUTPUT_FILE' ready.\n"
